@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"database/sql"
+	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jessevdk/go-flags"
 	"log"
@@ -78,7 +79,12 @@ func query(sql string) {
 }
 
 func errorIf(err error, echoError bool) {
-	if echoError && err != nil {
-		log.Fatal(err)
+	if err == nil {
+		return
 	}
+
+	if echoError {
+		fmt.Println(err)
+	}
+	os.Exit(1)
 }
